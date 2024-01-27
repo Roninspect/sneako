@@ -7,6 +7,7 @@ import 'package:sneako/src/features/cart/pages/cart_page.dart';
 import 'package:sneako/src/features/checkout/pages/add_new_address.dart';
 import 'package:sneako/src/features/checkout/pages/address_page.dart';
 import 'package:sneako/src/features/checkout/pages/checkout_page.dart';
+import 'package:sneako/src/features/favourite/pages/fav_page.dart';
 import 'package:sneako/src/features/product_details/pages/product_details_page.dart';
 import 'package:sneako/src/features/root/pages/rootpage.dart';
 import 'package:sneako/src/models/product.dart';
@@ -21,7 +22,8 @@ enum AppRoutes {
   cart,
   checkout,
   addresses,
-  addAddress
+  addAddress,
+  favourite,
 }
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -56,6 +58,11 @@ final routerProvider = Provider<GoRouter>((ref) {
                 product: state.extra as Product,
               );
             },
+          ),
+          GoRoute(
+            path: 'favourite',
+            name: AppRoutes.favourite.name,
+            builder: (context, state) => const FavPage(),
           ),
           GoRoute(
               path: 'cart',

@@ -8,8 +8,10 @@ import 'package:readmore/readmore.dart';
 
 import 'package:sneako/src/core/helper/async_value_helper.dart';
 import 'package:sneako/src/core/shared/custom_snackbar.dart';
+import 'package:sneako/src/core/shared/loader.dart';
 import 'package:sneako/src/features/cart/controllers/cart_controller.dart';
 import 'package:sneako/src/features/cart/widgets/cart_icon.dart';
+import 'package:sneako/src/features/favourite/controller/fav_controller.dart';
 import 'package:sneako/src/features/product_details/providers/color_provider.dart';
 import 'package:sneako/src/features/product_details/providers/quantity_provider.dart';
 import 'package:sneako/src/features/product_details/providers/size_provider.dart';
@@ -47,6 +49,7 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final favState = ref.watch(favControllerProvider);
     final quantity = ref.watch(quantityNotifierProvider);
 
     final addTocartState = ref.watch(cartControllerProvider);
@@ -94,13 +97,38 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
                       style: const TextStyle(
                           fontSize: 25, fontWeight: FontWeight.bold),
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Feather.heart,
-                        size: 30,
-                      ),
-                    ),
+                    favState.isLoading
+                        ? loader()
+                        : AsyncValueWidget(
+                            value: ref.watch(isFavAlreadyProvider(
+                                productId: widget.product.id)),
+                            data: (p0) => p0
+                                ? IconButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(favControllerProvider.notifier)
+                                          .unFavProduct(
+                                              productId: widget.product.id);
+                                    },
+                                    icon: const Icon(
+                                      AntDesign.heart,
+                                      color: Colors.red,
+                                      size: 30,
+                                    ),
+                                  )
+                                : IconButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(favControllerProvider.notifier)
+                                          .favProduct(
+                                              productId: widget.product.id);
+                                    },
+                                    icon: const Icon(
+                                      Feather.heart,
+                                      size: 30,
+                                    ),
+                                  ),
+                          ),
                   ],
                 ),
                 Row(

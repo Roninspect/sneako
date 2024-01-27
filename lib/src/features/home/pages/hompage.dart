@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sneako/src/core/helper/async_value_helper.dart';
 import 'package:sneako/src/features/auth/provider/user_data_notifer.dart';
+import 'package:sneako/src/features/favourite/controller/fav_controller.dart';
 import 'package:sneako/src/features/home/repository/home_repository.dart';
 import 'package:sneako/src/features/home/widgets/brand_listview.dart';
 import 'package:sneako/src/features/home/widgets/custom_search_bar.dart';
@@ -11,6 +13,7 @@ import 'package:sneako/src/features/home/widgets/offer_card.dart';
 import 'package:sneako/src/features/home/widgets/productById_listview.dart';
 import 'package:sneako/src/features/home/widgets/select_brand_listview.dart';
 import 'package:sneako/src/features/home/widgets/title_sell_row.dart';
+import 'package:sneako/src/router/router.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -67,12 +70,23 @@ class HomePage extends ConsumerWidget {
                 Ionicons.ios_notifications_outline,
                 size: 26,
               )),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Ionicons.heart_outline,
-                size: 27,
-              )),
+          AsyncValueWidget(
+            value: ref.watch(favControllerProvider),
+            data: (p0) => IconButton(
+                onPressed: () => context.pushNamed(AppRoutes.favourite.name),
+                icon: p0.isEmpty
+                    ? const Icon(
+                        Ionicons.heart_outline,
+                        size: 27,
+                      )
+                    : Badge(
+                        label: Text(p0.length.toString()),
+                        child: const Icon(
+                          Ionicons.heart_outline,
+                          size: 27,
+                        ),
+                      )),
+          ),
         ],
       ),
       body: SingleChildScrollView(
