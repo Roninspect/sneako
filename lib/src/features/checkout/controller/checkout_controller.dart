@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sneako/src/core/shared/custom_snackbar.dart';
+import 'package:sneako/src/features/checkout/providers/selected_address.dart';
 import 'package:sneako/src/features/checkout/repository/checkout_repository.dart';
 import 'package:sneako/src/models/address.dart';
 
@@ -99,6 +100,9 @@ class CheckoutController extends StateNotifier<bool> {
           context.pop();
           _ref.invalidate(getDefaultAddressProvider);
           _ref.invalidate(getAddressProvider);
+          // _ref
+          //     .read(selectedAddressNotifierProvider.notifier)
+          //     .selectAddress(selectAddress: updatedAddress);
         });
         state = false;
       });
@@ -115,6 +119,9 @@ class CheckoutController extends StateNotifier<bool> {
 
       res.fold((l) => showSnackbar(context: context, text: l.message), (r) {
         context.pop();
+        _ref
+            .read(selectedAddressNotifierProvider(updatedAddress).notifier)
+            .selectAddress(selectAddress: updatedAddress);
         _ref.invalidate(getDefaultAddressProvider);
         _ref.invalidate(getAddressProvider);
       });

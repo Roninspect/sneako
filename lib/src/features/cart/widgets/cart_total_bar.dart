@@ -9,10 +9,12 @@ import 'package:sneako/src/router/router.dart';
 
 class CartTotalBar extends ConsumerWidget {
   final bool isCheckout;
+  final int? shippingCharge;
   final Function()? onPressed;
   const CartTotalBar({
     super.key,
     required this.isCheckout,
+    this.shippingCharge,
     this.onPressed,
   });
 
@@ -52,11 +54,19 @@ class CartTotalBar extends ConsumerWidget {
                           .map((cartItem) =>
                               cartItem.quantity * cartItem.product!.mainPrice)
                           .reduce((total, itemTotal) => total + itemTotal);
-                      return Text(
-                        "\$$totalPrice.00",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 30),
-                      );
+                      if (shippingCharge == null) {
+                        return Text(
+                          "\$$totalPrice.00",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 30),
+                        );
+                      } else {
+                        return Text(
+                          "\$${totalPrice + shippingCharge!}.00",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 30),
+                        );
+                      }
                     } else {
                       return const Text(
                         "\$0.00",

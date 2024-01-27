@@ -106,7 +106,7 @@ class CustomBottomSheets {
       isDismissible: false,
       context: context,
       builder: (context) {
-        return SizedBox(height: 600, child: EditAddressPage(address: address));
+        return SizedBox(height: 800, child: EditAddressPage(address: address));
       },
     );
   }

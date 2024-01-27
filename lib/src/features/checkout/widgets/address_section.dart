@@ -28,8 +28,7 @@ class AddressSection extends ConsumerWidget {
                   final selectedAddress =
                       ref.watch(selectedAddressNotifierProvider(address));
                   return AddressEditableCard(address: selectedAddress);
-                } else if (addresses.isNotEmpty && addresses.length == 1) {
-                  context.pushNamed(AppRoutes.addresses.name);
+                } else if (addresses.isNotEmpty) {
                   return AddressEditableCard(address: addresses.first);
                 } else {
                   return Padding(

@@ -46,6 +46,7 @@ class CartCard extends ConsumerWidget {
                             CachedNetworkImage(
                               height: 100,
                               width: 110,
+                              cacheKey: cartProduct.background,
                               imageUrl: cartProduct.background,
                             ),
                             const SizedBox(width: 10),

@@ -59,7 +59,6 @@ class _EditAddressPageState extends ConsumerState<EditAddressPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 05),
                         Row(
                           children: [
                             IconButton(
@@ -80,7 +79,6 @@ class _EditAddressPageState extends ConsumerState<EditAddressPage> {
                           ],
                         ),
                         const Divider(),
-                        const SizedBox(height: 5),
                         const Text(
                           "Address Type",
                           style: TextStyle(
@@ -120,7 +118,8 @@ class _EditAddressPageState extends ConsumerState<EditAddressPage> {
                             fillColor: Colors.grey[300],
                           ),
                         ),
-                        addresses.length == 1
+                        addresses.length == 1 ||
+                                widget.address.isDefault == true
                             ? const SizedBox.shrink()
                             : Row(
                                 children: [
@@ -164,8 +163,8 @@ class _EditAddressPageState extends ConsumerState<EditAddressPage> {
                               ),
                         Center(
                           child: SizedBox(
-                            height: 60,
-                            width: 300,
+                            height: 45,
+                            width: 150,
                             child: FloatingActionButton.extended(
                               backgroundColor: Colors.black,
                               splashColor:
