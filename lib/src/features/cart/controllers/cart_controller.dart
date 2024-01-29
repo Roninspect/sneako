@@ -130,4 +130,19 @@ class CartController extends _$CartController {
       return cartRepository.getCartItems();
     });
   }
+
+  Future<void> emptyCart() async {
+    final cartRepository = ref.watch(cartRepositoryProvider);
+    for (var cart in state.value!) {
+      state = await AsyncValue.guard(() async {
+        await ref.read(cartRepositoryProvider).rmeoveFromCart(
+              uid: cart.uid,
+              colorId: cart.color,
+              productId: cart.productId,
+              sizeId: cart.size,
+            );
+        return cartRepository.getCartItems();
+      });
+    }
+  }
 }

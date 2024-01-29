@@ -21,8 +21,8 @@ class CartRepository {
   Future<void> addToCart({required Cart cart}) async {
     try {
       return await _client.from('carts').insert(cart.toMap());
-    } catch (e) {
-      print(e.toString());
+    } catch (e, stk) {
+      print(stk);
       throw e.toString();
     }
   }
@@ -38,7 +38,8 @@ class CartRepository {
       final List<Cart> carts = res.map((e) => Cart.fromMap(e)).toList();
 
       return carts;
-    } catch (e) {
+    } catch (e, stk) {
+      print(stk);
       throw e.toString();
     }
   }

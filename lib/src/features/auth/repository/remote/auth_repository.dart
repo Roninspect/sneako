@@ -2,17 +2,26 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart' as riverpod;
 import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sneako/src/core/helper/failure.dart';
 import 'package:sneako/src/core/helper/typedefs.dart';
 import 'package:sneako/src/models/user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
-final authRepositoryProvider = riverpod.Provider<AuthRepository>((ref) {
+part "auth_repository.g.dart";
+
+@Riverpod(keepAlive: true)
+AuthRepository authRepository(AuthRepositoryRef ref) {
   return AuthRepository(
-    client: supabase.Supabase.instance.client,
-    googleSignIn: GoogleSignIn(),
-  );
-});
+      client: supabase.Supabase.instance.client, googleSignIn: GoogleSignIn());
+}
+
+// final authRepositoryProvider = riverpod.Provider<AuthRepository>((ref) {
+//   return AuthRepository(
+//     client: supabase.Supabase.instance.client,
+//     googleSignIn: GoogleSignIn(),
+//   );
+// });
 
 final authStateProvider = riverpod.StreamProvider<supabase.AuthState?>((ref) {
   return ref.watch(authRepositoryProvider).authStateChanges;

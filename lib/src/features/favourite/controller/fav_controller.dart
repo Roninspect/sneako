@@ -47,6 +47,7 @@ class FavController extends _$FavController {
     final FavRepository favRepository = ref.watch(favRepositoryProvider);
     state = await AsyncValue.guard(() async {
       await favRepository.deleteFav(favId: favId);
+      ref.invalidate(isFavAlreadyProvider);
 
       return getFavourites();
     });

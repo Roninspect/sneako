@@ -5,14 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:readmore/readmore.dart';
-
 import 'package:sneako/src/core/helper/async_value_helper.dart';
-import 'package:sneako/src/core/shared/custom_snackbar.dart';
 import 'package:sneako/src/core/shared/loader.dart';
 import 'package:sneako/src/features/cart/controllers/cart_controller.dart';
 import 'package:sneako/src/features/cart/widgets/cart_icon.dart';
 import 'package:sneako/src/features/favourite/controller/fav_controller.dart';
 import 'package:sneako/src/features/product_details/providers/color_provider.dart';
+import 'package:sneako/src/features/product_details/providers/product_attribute_provider..dart';
 import 'package:sneako/src/features/product_details/providers/quantity_provider.dart';
 import 'package:sneako/src/features/product_details/providers/size_provider.dart';
 import 'package:sneako/src/features/product_details/repository/product_details_repository.dart';
@@ -20,7 +19,6 @@ import 'package:sneako/src/features/product_details/widgets/add-to_cart_BTN.dart
 import 'package:sneako/src/features/product_details/widgets/color_sizes_view.dart';
 import 'package:sneako/src/features/product_details/widgets/product_image_carousel.dart';
 import 'package:sneako/src/features/product_details/widgets/quantity_bar.dart';
-import 'package:sneako/src/features/root/provider/nav_controller.dart';
 import 'package:sneako/src/models/product.dart';
 import 'package:sneako/src/router/router.dart';
 
@@ -52,6 +50,8 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
     final favState = ref.watch(favControllerProvider);
     final quantity = ref.watch(quantityNotifierProvider);
 
+    final paS = ref.watch(selectedproductAttributeProvider);
+
     final addTocartState = ref.watch(cartControllerProvider);
     return SafeArea(
       child: Scaffold(
@@ -71,8 +71,6 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
           actions: [
             IconButton(
                 onPressed: () async {
-                  // context.pop();
-                  // ref.read(navNotifierProvider.notifier).navStateChange(1);
                   context.pushNamed(AppRoutes.cart.name);
                 },
                 icon: const CartIcon())
@@ -138,9 +136,9 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
                       decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 200, 204, 200),
                           borderRadius: BorderRadius.circular(10)),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          '1250 Sold',
+                          '1250 Sold ',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),

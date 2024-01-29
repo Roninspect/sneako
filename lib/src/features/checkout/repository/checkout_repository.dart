@@ -3,6 +3,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sneako/src/core/helper/failure.dart';
 import 'package:sneako/src/core/helper/typedefs.dart';
 import 'package:sneako/src/models/address.dart';
+import 'package:sneako/src/models/order.dart';
+import 'package:sneako/src/models/order_line.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 part 'checkout_repository.g.dart';
@@ -84,6 +86,22 @@ class CheckoutRepository {
           .eq('isDefault', true));
     } catch (e) {
       return left(Failure(e.toString()));
+    }
+  }
+
+  FutureVoid addOrder({required ProductOrder order}) async {
+    try {
+      return right(await _client.from('orders').insert(order.toMap()));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  FutureVoid addOrderLine({required OrderLine orderLine}) async {
+    try {
+      return right(await _client.from('order_line').insert(orderLine.toMap()));
+    } catch (e) {
+      return Left(Failure(e.toString()));
     }
   }
 }

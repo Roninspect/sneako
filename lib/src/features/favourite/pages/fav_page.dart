@@ -13,7 +13,12 @@ class FavPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Favourites"),
+        title: AsyncValueWidget(
+            value: ref.watch(favControllerProvider),
+            data: (p0) => Text(
+                  "Favourites (${p0.length})",
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                )),
       ),
       body: AsyncValueWidget(
           value: ref.watch(favControllerProvider),

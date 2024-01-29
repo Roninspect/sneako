@@ -12,6 +12,7 @@ class Cart {
   final String uid;
   final int color;
   final int size;
+  final int pa_id;
   ProductColor? colors;
   ProductSize? sizes;
   Product? product;
@@ -22,6 +23,7 @@ class Cart {
     required this.uid,
     required this.color,
     required this.size,
+    required this.pa_id,
     this.colors,
     this.sizes,
     this.product,
@@ -34,6 +36,7 @@ class Cart {
     String? uid,
     int? color,
     int? size,
+    int? pa_id,
     ProductColor? colors,
     ProductSize? sizes,
     Product? product,
@@ -45,6 +48,7 @@ class Cart {
       uid: uid ?? this.uid,
       color: color ?? this.color,
       size: size ?? this.size,
+      pa_id: pa_id ?? this.pa_id,
       colors: colors ?? this.colors,
       sizes: sizes ?? this.sizes,
       product: product ?? this.product,
@@ -58,6 +62,7 @@ class Cart {
       'uid': uid,
       'color': color,
       'size': size,
+      'pa_id': pa_id,
     };
   }
 
@@ -69,6 +74,7 @@ class Cart {
       uid: map['uid'] as String,
       color: map['color'] as int,
       size: map['size'] as int,
+      pa_id: map['pa_id'] as int,
       colors: map['colors'] != null
           ? ProductColor.fromMap(map['colors'] as Map<String, dynamic>)
           : null,
@@ -88,7 +94,7 @@ class Cart {
 
   @override
   String toString() {
-    return 'Cart(id: $id, productId: $productId, quantity: $quantity, uid: $uid, color: $color, size: $size, colors: $colors, sizes: $sizes, product: $product)';
+    return 'Cart(id: $id, productId: $productId, quantity: $quantity, uid: $uid, color: $color, size: $size, pa_id: $pa_id, colors: $colors, sizes: $sizes, product: $product)';
   }
 
   @override
@@ -101,6 +107,7 @@ class Cart {
         other.uid == uid &&
         other.color == color &&
         other.size == size &&
+        other.pa_id == pa_id &&
         other.colors == colors &&
         other.sizes == sizes &&
         other.product == product;
@@ -114,6 +121,7 @@ class Cart {
         uid.hashCode ^
         color.hashCode ^
         size.hashCode ^
+        pa_id.hashCode ^
         colors.hashCode ^
         sizes.hashCode ^
         product.hashCode;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sneako/src/features/cart/widgets/cart_card.dart';
 import 'package:sneako/src/features/cart/widgets/cart_total_bar.dart';

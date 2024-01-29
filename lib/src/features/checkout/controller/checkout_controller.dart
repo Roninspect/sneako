@@ -1,10 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:sneako/src/core/shared/custom_snackbar.dart';
+import 'package:sneako/src/features/cart/controllers/cart_controller.dart';
 import 'package:sneako/src/features/checkout/providers/selected_address.dart';
 import 'package:sneako/src/features/checkout/repository/checkout_repository.dart';
 import 'package:sneako/src/models/address.dart';
+import 'package:sneako/src/models/order.dart';
+import 'package:sneako/src/models/order_line.dart';
 
 final checkoutControllerProvider =
     StateNotifierProvider<CheckoutController, bool>((ref) {
@@ -128,5 +134,42 @@ class CheckoutController extends StateNotifier<bool> {
 
       state = false;
     }
+  }
+
+  Future<void> addOrder(
+      {required ProductOrder order,
+      required BuildContext context,
+      required List<OrderLine> orderlines}) async {
+    state = true;
+    final res = await _checkoutRepository.addOrder(order: order);
+
+    res.fold((l) => showSnackbar(context: context, text: l.message), (r) async {
+      for (var singleOrder in orderlines) {
+        final ores =
+            await _checkoutRepository.addOrderLine(orderLine: singleOrder);
+
+        ores.fold(
+            (l) => QuickAlert.show(
+                context: context,
+                type: QuickAlertType.error,
+                text: l.message), (r) async {
+          await _ref.read(cartControllerProvider.notifier).emptyCart();
+          QuickAlert.show(
+              onConfirmBtnTap: () {
+                context.pop();
+                context.pop();
+              },
+              barrierDismissible: false,
+              confirmBtnColor: Colors.grey[300]!,
+              confirmBtnText: "Back to Home",
+              confirmBtnTextStyle: TextStyle(color: Colors.black),
+              context: context,
+              type: QuickAlertType.success,
+              widget: ElevatedButton(
+                  onPressed: () {}, child: Text("View My Order")));
+          state = false;
+        });
+      }
+    });
   }
 }

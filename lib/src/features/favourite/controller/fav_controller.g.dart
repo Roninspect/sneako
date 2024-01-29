@@ -155,7 +155,7 @@ class _IsFavAlreadyProviderElement extends FutureProviderElement<bool>
   int get productId => (origin as IsFavAlreadyProvider).productId;
 }
 
-String _$favControllerHash() => r'91ae845d10c54a723f7d0994305bdd0804b25b86';
+String _$favControllerHash() => r'f2276b43cd3f81480aa93a23a1021bdce15841fb';
 
 /// See also [FavController].
 @ProviderFor(FavController)

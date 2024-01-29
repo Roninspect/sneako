@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -21,6 +22,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userDataNotifierProvider);
+    final favCount = ref.watch(favControllerProvider).valueOrNull;
 
     final currentTime = DateTime.now();
     final currentHour = currentTime.hour;
@@ -70,23 +72,22 @@ class HomePage extends ConsumerWidget {
                 Ionicons.ios_notifications_outline,
                 size: 26,
               )),
-          AsyncValueWidget(
-            value: ref.watch(favControllerProvider),
-            data: (p0) => IconButton(
-                onPressed: () => context.pushNamed(AppRoutes.favourite.name),
-                icon: p0.isEmpty
-                    ? const Icon(
-                        Ionicons.heart_outline,
-                        size: 27,
-                      )
-                    : Badge(
-                        label: Text(p0.length.toString()),
-                        child: const Icon(
+          IconButton(
+              onPressed: () => context.pushNamed(AppRoutes.favourite.name),
+              icon: favCount == null
+                  ? const SizedBox.shrink()
+                  : favCount.isEmpty
+                      ? const Icon(
                           Ionicons.heart_outline,
                           size: 27,
-                        ),
-                      )),
-          ),
+                        )
+                      : Badge(
+                          label: Text(favCount.length.toString()),
+                          child: const Icon(
+                            Ionicons.heart_outline,
+                            size: 27,
+                          ),
+                        ))
         ],
       ),
       body: SingleChildScrollView(

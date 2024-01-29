@@ -8,6 +8,7 @@ import 'package:sneako/src/core/shared/custom_snackbar.dart';
 import 'package:sneako/src/features/product_details/providers/available_sizes_provider.dart';
 import 'package:sneako/src/features/product_details/providers/carousel_index_provider.dart';
 import 'package:sneako/src/features/product_details/providers/color_provider.dart';
+import 'package:sneako/src/features/product_details/providers/product_attribute_provider..dart';
 import 'package:sneako/src/features/product_details/providers/size_provider.dart';
 import 'package:sneako/src/features/product_details/repository/product_details_repository.dart';
 import 'package:sneako/src/models/product_image.dart';
@@ -134,6 +135,12 @@ class ColorSizeListView extends ConsumerWidget {
                                               .notifier)
                                           .selectSize(
                                               selectedSize: productAttribute);
+                                      ref
+                                          .read(selectedproductAttributeProvider
+                                              .notifier)
+                                          .selectProductAttribute(
+                                            productAttributes: p0,
+                                          );
                                     },
                                     child: CircleAvatar(
                                       radius: 20,
@@ -182,19 +189,27 @@ class ColorSizeListView extends ConsumerWidget {
                                 return Padding(
                                   padding: const EdgeInsets.only(right: 5.0),
                                   child: GestureDetector(
-                                    onTap: () {
-                                      selectedColor != null
-                                          ? ref
-                                              .read(sizeSelectorNotifierProvider
-                                                  .notifier)
-                                              .selectSize(
-                                                  selectedSize:
-                                                      productAttribute.sizes)
-                                          : showSnackbar(
-                                              context: context,
-                                              text:
-                                                  'Select Your Preferred Color First');
-                                    },
+                                    onTap: selectedColor != null
+                                        ? () {
+                                            ref
+                                                .read(
+                                                    sizeSelectorNotifierProvider
+                                                        .notifier)
+                                                .selectSize(
+                                                    selectedSize:
+                                                        productAttribute.sizes);
+                                            ref
+                                                .read(
+                                                    selectedproductAttributeProvider
+                                                        .notifier)
+                                                .selectProductAttribute(
+                                                  productAttributes: p0,
+                                                );
+                                          }
+                                        : () => showSnackbar(
+                                            context: context,
+                                            text:
+                                                'Select Your Preferred Color First'),
                                     child: CircleAvatar(
                                       radius: 20,
                                       backgroundColor: Colors.black,

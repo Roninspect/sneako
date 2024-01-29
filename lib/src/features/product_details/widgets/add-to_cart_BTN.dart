@@ -9,6 +9,7 @@ import 'package:sneako/src/features/auth/provider/user_data_notifer.dart';
 import 'package:sneako/src/features/cart/controllers/cart_controller.dart';
 import 'package:sneako/src/features/cart/pages/cart_page.dart';
 import 'package:sneako/src/features/product_details/providers/color_provider.dart';
+import 'package:sneako/src/features/product_details/providers/product_attribute_provider..dart';
 import 'package:sneako/src/features/product_details/providers/quantity_provider.dart';
 import 'package:sneako/src/features/product_details/providers/size_provider.dart';
 import 'package:sneako/src/features/product_details/repository/product_details_repository.dart';
@@ -49,6 +50,8 @@ class ATCButton extends ConsumerWidget {
                               quantity: quantity,
                               uid: uid.id,
                               color: selectedColor.id,
+                              pa_id: ref.watch(selectedproductAttributeProvider
+                                  .select((value) => value!.id)),
                               size: selectedSizes.id,
                             ));
                         context.pushNamed(AppRoutes.cart.name);
