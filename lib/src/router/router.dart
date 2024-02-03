@@ -8,8 +8,11 @@ import 'package:sneako/src/features/checkout/pages/add_new_address.dart';
 import 'package:sneako/src/features/checkout/pages/address_page.dart';
 import 'package:sneako/src/features/checkout/pages/checkout_page.dart';
 import 'package:sneako/src/features/favourite/pages/fav_page.dart';
+import 'package:sneako/src/features/orders/pages/order_details_page.dart';
+import 'package:sneako/src/features/orders/pages/orders_page.dart';
 import 'package:sneako/src/features/product_details/pages/product_details_page.dart';
 import 'package:sneako/src/features/root/pages/rootpage.dart';
+import 'package:sneako/src/models/order.dart';
 import 'package:sneako/src/models/product.dart';
 import 'package:sneako/src/router/state_notifier.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -24,6 +27,8 @@ enum AppRoutes {
   addresses,
   addAddress,
   favourite,
+  orders,
+  orderDetails,
 }
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -82,6 +87,22 @@ final routerProvider = Provider<GoRouter>((ref) {
                   ],
                 ),
               ]),
+          GoRoute(
+              path: 'orders',
+              name: AppRoutes.orders.name,
+              builder: (context, state) => const OrdersPage(),
+              routes: [
+                GoRoute(
+                  path: ':id',
+                  name: AppRoutes.orderDetails.name,
+                  builder: (context, state) {
+                    state.pathParameters['id'];
+                    return OrderDetailsPage(
+                      order: state.extra as ProductOrder,
+                    );
+                  },
+                )
+              ])
         ],
       ),
     ],

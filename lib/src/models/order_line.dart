@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:sneako/src/models/product_attributes.dart';
+
 class OrderLine {
   final int? id;
   final DateTime? ordered_at;
@@ -8,6 +10,7 @@ class OrderLine {
   final int pa_id;
   final int quantity;
   final int price;
+  ProductAttribute? productAttribute;
   OrderLine({
     this.id,
     this.ordered_at,
@@ -15,6 +18,7 @@ class OrderLine {
     required this.pa_id,
     required this.quantity,
     required this.price,
+    this.productAttribute,
   });
 
   OrderLine copyWith({
@@ -24,6 +28,8 @@ class OrderLine {
     int? pa_id,
     int? quantity,
     int? price,
+    OrderLine? orderline,
+    ProductAttribute? productAttribute,
   }) {
     return OrderLine(
       id: id ?? this.id,
@@ -32,6 +38,7 @@ class OrderLine {
       pa_id: pa_id ?? this.pa_id,
       quantity: quantity ?? this.quantity,
       price: price ?? this.price,
+      productAttribute: productAttribute ?? this.productAttribute,
     );
   }
 
@@ -46,15 +53,15 @@ class OrderLine {
 
   factory OrderLine.fromMap(Map<String, dynamic> map) {
     return OrderLine(
-      id: map['id'] != null ? map['id'] as int : null,
-      ordered_at: map['ordered_at'] != null
-          ? DateTime.parse(map['ordered_at'] as String)
-          : null,
-      order_id: map['order_id'] as String,
-      pa_id: map['pa_id'] as int,
-      quantity: map['quantity'] as int,
-      price: map['price'] as int,
-    );
+        id: map['id'] != null ? map['id'] as int : null,
+        ordered_at: map['ordered_at'] != null
+            ? DateTime.parse(map['ordered_at'] as String)
+            : null,
+        order_id: map['order_id'] as String,
+        pa_id: map['pa_id'] as int,
+        quantity: map['quantity'] as int,
+        price: map['price'] as int,
+        productAttribute: ProductAttribute.fromMap(map['product_attributes']));
   }
 
   String toJson() => json.encode(toMap());
@@ -76,7 +83,8 @@ class OrderLine {
         other.order_id == order_id &&
         other.pa_id == pa_id &&
         other.quantity == quantity &&
-        other.price == price;
+        other.price == price &&
+        other.productAttribute == productAttribute;
   }
 
   @override
@@ -86,6 +94,7 @@ class OrderLine {
         order_id.hashCode ^
         pa_id.hashCode ^
         quantity.hashCode ^
+        productAttribute.hashCode ^
         price.hashCode;
   }
 }

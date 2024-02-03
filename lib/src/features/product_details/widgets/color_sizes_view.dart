@@ -8,7 +8,7 @@ import 'package:sneako/src/core/shared/custom_snackbar.dart';
 import 'package:sneako/src/features/product_details/providers/available_sizes_provider.dart';
 import 'package:sneako/src/features/product_details/providers/carousel_index_provider.dart';
 import 'package:sneako/src/features/product_details/providers/color_provider.dart';
-import 'package:sneako/src/features/product_details/providers/product_attribute_provider..dart';
+import 'package:sneako/src/features/product_details/providers/product_attribute_provider.dart';
 import 'package:sneako/src/features/product_details/providers/size_provider.dart';
 import 'package:sneako/src/features/product_details/repository/product_details_repository.dart';
 import 'package:sneako/src/models/product_image.dart';
@@ -57,7 +57,7 @@ class ColorSizeListView extends ConsumerWidget {
                         itemCount: p0.length,
                         itemBuilder: (context, index) {
                           final productAttribute = p0[index];
-                          final colorCode = productAttribute.colors.colorCode;
+                          final colorCode = productAttribute.colors!.colorCode;
 
                           if (!uniqueColorCodes.contains(colorCode)) {
                             // Add the color code to the set to ensure uniqueness
@@ -70,7 +70,8 @@ class ColorSizeListView extends ConsumerWidget {
                                         colorSelectorNotifierProvider.notifier)
                                     .selectColor(
                                         carouselController: carouselController,
-                                        selectedColor: productAttribute.colors);
+                                        selectedColor:
+                                            productAttribute.colors!);
 
                                 ref
                                     .read(availableSizesListNotifierProvider
@@ -152,7 +153,7 @@ class ColorSizeListView extends ConsumerWidget {
                                                 ? Colors.black
                                                 : Colors.white,
                                         child: Text(
-                                          productAttribute.size.toString(),
+                                          productAttribute!.size.toString(),
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: selectedSizes ==
@@ -197,7 +198,8 @@ class ColorSizeListView extends ConsumerWidget {
                                                         .notifier)
                                                 .selectSize(
                                                     selectedSize:
-                                                        productAttribute.sizes);
+                                                        productAttribute
+                                                            .sizes!);
                                             ref
                                                 .read(
                                                     selectedproductAttributeProvider
@@ -220,7 +222,7 @@ class ColorSizeListView extends ConsumerWidget {
                                             ? Colors.black
                                             : Colors.white,
                                         child: Text(
-                                          productAttribute.sizes.size
+                                          productAttribute.sizes!.size
                                               .toString(),
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,

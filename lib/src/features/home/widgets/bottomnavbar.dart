@@ -35,11 +35,6 @@ class CustomBottomNavBar extends ConsumerWidget {
                   : const Icon(Ionicons.receipt),
               label: 'Orders'),
           BottomNavigationBarItem(
-              icon: navIndex != 3
-                  ? const Icon(Ionicons.wallet_outline)
-                  : const Icon(Ionicons.wallet),
-              label: 'Wallet'),
-          BottomNavigationBarItem(
               icon: navIndex != 4
                   ? const Icon(Ionicons.person_outline)
                   : const Icon(Ionicons.ios_person),

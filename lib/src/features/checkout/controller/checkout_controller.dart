@@ -8,6 +8,7 @@ import 'package:sneako/src/core/shared/custom_snackbar.dart';
 import 'package:sneako/src/features/cart/controllers/cart_controller.dart';
 import 'package:sneako/src/features/checkout/providers/selected_address.dart';
 import 'package:sneako/src/features/checkout/repository/checkout_repository.dart';
+import 'package:sneako/src/features/orders/repository/order_repository.dart';
 import 'package:sneako/src/models/address.dart';
 import 'package:sneako/src/models/order.dart';
 import 'package:sneako/src/models/order_line.dart';
@@ -144,6 +145,10 @@ class CheckoutController extends StateNotifier<bool> {
     final res = await _checkoutRepository.addOrder(order: order);
 
     res.fold((l) => showSnackbar(context: context, text: l.message), (r) async {
+      await _ref
+          .watch(checkoutControllerProvider.notifier)
+          .addInitialOrderStatus(orderId: order.id!, context: context);
+
       for (var singleOrder in orderlines) {
         final ores =
             await _checkoutRepository.addOrderLine(orderLine: singleOrder);
@@ -167,9 +172,20 @@ class CheckoutController extends StateNotifier<bool> {
               type: QuickAlertType.success,
               widget: ElevatedButton(
                   onPressed: () {}, child: Text("View My Order")));
-          state = false;
         });
       }
+      _ref.invalidate(getActiveOrdersProvider);
+      state = false;
     });
+  }
+
+  Future<void> addInitialOrderStatus({
+    required String orderId,
+    required BuildContext context,
+  }) async {
+    final res =
+        await _checkoutRepository.addInitialOrderStatus(orderId: orderId);
+
+    res.fold((l) => print(l.message), (r) => null);
   }
 }

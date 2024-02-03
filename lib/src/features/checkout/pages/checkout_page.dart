@@ -317,7 +317,8 @@ class CheckOutPage extends ConsumerWidget {
                                                       pa_id: e.pa_id,
                                                       order_id: orderId,
                                                       quantity: e.quantity,
-                                                      price: e.productId))
+                                                      price:
+                                                          e.product!.mainPrice))
                                                   .toList());
                                     },
                                     shippingCharge: 10,

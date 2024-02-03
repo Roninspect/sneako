@@ -11,7 +11,7 @@ import 'package:sneako/src/features/cart/controllers/cart_controller.dart';
 import 'package:sneako/src/features/cart/widgets/cart_icon.dart';
 import 'package:sneako/src/features/favourite/controller/fav_controller.dart';
 import 'package:sneako/src/features/product_details/providers/color_provider.dart';
-import 'package:sneako/src/features/product_details/providers/product_attribute_provider..dart';
+import 'package:sneako/src/features/product_details/providers/product_attribute_provider.dart';
 import 'package:sneako/src/features/product_details/providers/quantity_provider.dart';
 import 'package:sneako/src/features/product_details/providers/size_provider.dart';
 import 'package:sneako/src/features/product_details/repository/product_details_repository.dart';

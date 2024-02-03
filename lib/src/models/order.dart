@@ -58,7 +58,7 @@ class ProductOrder {
           ? DateTime.parse(map['order_date'] as String)
           : null,
       uid: map['uid'] as String,
-      address: map['address'] as String,
+      address: map['shipping_address'] as String,
       order_total: map['order_total'] as int,
       trxId: map['trxId'] as String,
       orderStatus: map['order_status'] as String,

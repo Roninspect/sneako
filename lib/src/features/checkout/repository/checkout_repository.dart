@@ -99,7 +99,17 @@ class CheckoutRepository {
 
   FutureVoid addOrderLine({required OrderLine orderLine}) async {
     try {
-      return right(await _client.from('order_line').insert(orderLine.toMap()));
+      return right(await _client.from('order_lines').insert(orderLine.toMap()));
+    } catch (e, stk) {
+      print(stk);
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  FutureVoid addInitialOrderStatus({required String orderId}) async {
+    try {
+      return right(
+          await _client.from('shipping_status').insert({'order_id': orderId}));
     } catch (e) {
       return Left(Failure(e.toString()));
     }

@@ -7,8 +7,8 @@ import 'package:sneako/src/models/size.dart';
 class ProductAttribute {
   final int id;
   final int productId;
-  final ProductColor colors;
-  final ProductSize sizes;
+  ProductColor? colors;
+  ProductSize? sizes;
   final int quantity;
   ProductAttribute({
     required this.id,
@@ -38,8 +38,6 @@ class ProductAttribute {
     return <String, dynamic>{
       'id': id,
       'product_id': productId,
-      'colors': colors.toMap(),
-      'sizes': sizes.toMap(),
       'quantity': quantity,
     };
   }
@@ -48,8 +46,12 @@ class ProductAttribute {
     return ProductAttribute(
       id: map['id'] as int,
       productId: map['product_id'] as int,
-      colors: ProductColor.fromMap(map['colors'] as Map<String, dynamic>),
-      sizes: ProductSize.fromMap(map['sizes'] as Map<String, dynamic>),
+      colors: map['colors'] != null
+          ? ProductColor.fromMap(map['colors'] as Map<String, dynamic>)
+          : null,
+      sizes: map['sizes'] != null
+          ? ProductSize.fromMap(map['sizes'] as Map<String, dynamic>)
+          : null,
       quantity: map['quantity'] as int,
     );
   }

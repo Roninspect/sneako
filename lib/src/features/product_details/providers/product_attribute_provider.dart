@@ -23,7 +23,7 @@ class ProductAttributeNotifier extends Notifier<ProductAttribute?> {
         ref.watch(sizeSelectorNotifierProvider.select((value) => value!.id));
 
     state = productAttributes.firstWhere((element) =>
-        element.colors.id == selectedColor &&
-        element.sizes.id == selectedSizes);
+        element.colors!.id == selectedColor &&
+        element.sizes!.id == selectedSizes);
   }
 }

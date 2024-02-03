@@ -9,6 +9,5 @@ class TabWidgets {
     const CartPage(),
     const OrdersPage(),
     const HomePage(),
-    const HomePage(),
   ];
 }
