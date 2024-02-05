@@ -20,7 +20,7 @@ class CheckOutPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = ref.watch(checkoutControllerProvider);
-    final uid = ref.watch(userDataNotifierProvider.select((value) => value.id));
+    final uid = ref.watch(userDataNotifierProvider).value!.id;
     final cartState = ref.watch(cartControllerProvider).value!;
 
     return Scaffold(
@@ -254,7 +254,7 @@ class CheckOutPage extends ConsumerWidget {
                                                   address:
                                                       selectedAddress.address,
                                                   order_total: ordertotal,
-                                                  orderStatus: "Ordered"),
+                                                  orderStatus: "Active"),
                                               context: context,
                                               orderlines: cartState
                                                   .map((e) => OrderLine(

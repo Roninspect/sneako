@@ -154,11 +154,12 @@ class OrderStatusTile extends ConsumerWidget {
                         color: Colors.green[100],
                         borderRadius: BorderRadius.circular(20)),
                     child: const Center(
-                        child: Text(
-                      "Just Ordered (Waiting for Pickup)",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    )),
+                      child: Text(
+                        "Just Ordered (Waiting for Pickup)",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    ),
                   )
                 : status.ordered &&
                         status.inTransit &&

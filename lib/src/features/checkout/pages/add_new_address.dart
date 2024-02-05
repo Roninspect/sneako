@@ -30,7 +30,7 @@ class _AddNewAddressState extends ConsumerState<AddNewAddress> {
 
   @override
   Widget build(BuildContext context) {
-    final uid = ref.watch(userDataNotifierProvider.select((value) => value.id));
+    final uid = ref.watch(userDataNotifierProvider).value!.id;
     final isLoading = ref.watch(checkoutControllerProvider);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),

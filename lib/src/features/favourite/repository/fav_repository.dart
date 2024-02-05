@@ -69,7 +69,8 @@ class FavRepository {
           .count(supabase.CountOption.exact);
 
       return res.count;
-    } catch (e) {
+    } catch (e, stk) {
+      print(stk);
       throw e.toString();
     }
   }

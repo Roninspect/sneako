@@ -13,7 +13,7 @@ class CartCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cartState = ref.watch(cartControllerProvider);
-    final uid = ref.watch(userDataNotifierProvider.select((value) => value.id));
+    final uid = ref.watch(userDataNotifierProvider).value!.id;
 
     return SizedBox(
       height: 620,

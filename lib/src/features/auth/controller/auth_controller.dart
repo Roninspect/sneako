@@ -33,6 +33,7 @@ class AuthController extends StateNotifier<bool> {
         await _authRepository.loginUser(email: email, password: password);
 
     res.fold((l) {
+      _ref.invalidate(userDataNotifierProvider);
       state = false;
       showSnackbar(context: context, text: l.message);
     }, (r) {
@@ -58,7 +59,7 @@ class AuthController extends StateNotifier<bool> {
     res.fold((l) {
       showSnackbar(context: contexts, text: l.message);
     }, (r) {
-      _ref.read(userDataNotifierProvider.notifier).fetchData();
+      _ref.invalidate(userDataNotifierProvider);
       _ref.invalidate(userDataNotifierProvider);
       contexts.pop();
       showSnackbar(context: contexts, text: "Registration Successful");

@@ -16,8 +16,8 @@ Future<bool> isFavAlready(IsFavAlreadyRef ref, {required int productId}) async {
 class FavController extends _$FavController {
   Future<List<Favourite>> getFavourites() async {
     final FavRepository favRepository = ref.watch(favRepositoryProvider);
-    // ignore: avoid_manual_providers_as_generated_provider_dependency
-    final uid = ref.watch(userDataNotifierProvider.select((value) => value.id));
+
+    final uid = ref.watch(userDataNotifierProvider).value!.id;
 
     return await favRepository.getFavourites(uid: uid);
   }
@@ -31,7 +31,7 @@ class FavController extends _$FavController {
     state = const AsyncLoading();
     final FavRepository favRepository = ref.watch(favRepositoryProvider);
     // ignore: avoid_manual_providers_as_generated_provider_dependency
-    final uid = ref.watch(userDataNotifierProvider.select((value) => value.id));
+    final uid = ref.watch(userDataNotifierProvider).value!.id;
     state = await AsyncValue.guard(() async {
       final Favourite favourite = Favourite(productId: productId, uid: uid);
       await favRepository.favProduct(favourite: favourite);
@@ -54,7 +54,7 @@ class FavController extends _$FavController {
   }
 
   Future<bool> isFavAlready({required int productId}) async {
-    final uid = ref.watch(userDataNotifierProvider.select((value) => value.id));
+    final uid = ref.watch(userDataNotifierProvider).value!.id;
 
     final FavRepository favRepository = ref.watch(favRepositoryProvider);
 
@@ -71,7 +71,7 @@ class FavController extends _$FavController {
   Future<void> unFavProduct({required int productId}) async {
     state = const AsyncLoading();
     final FavRepository favRepository = ref.watch(favRepositoryProvider);
-    final uid = ref.watch(userDataNotifierProvider.select((value) => value.id));
+    final uid = ref.watch(userDataNotifierProvider).value!.id;
     state = await AsyncValue.guard(() async {
       await favRepository.unFavProduct(productId: productId, uid: uid);
 

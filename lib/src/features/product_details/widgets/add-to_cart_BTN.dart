@@ -28,7 +28,7 @@ class ATCButton extends ConsumerWidget {
     final selectedColor = ref.watch(colorSelectorNotifierProvider);
     final selectedSizes = ref.watch(sizeSelectorNotifierProvider);
     final quantity = ref.watch(quantityNotifierProvider);
-    final uid = ref.watch(userDataNotifierProvider);
+    final uid = ref.watch(userDataNotifierProvider).value!.id;
     final bool isColorSizeSelected =
         selectedColor != null && selectedSizes != null;
 
@@ -48,7 +48,7 @@ class ATCButton extends ConsumerWidget {
                                 cart: Cart(
                               productId: productId,
                               quantity: quantity,
-                              uid: uid.id,
+                              uid: uid,
                               color: selectedColor.id,
                               pa_id: ref.watch(selectedproductAttributeProvider
                                   .select((value) => value!.id)),

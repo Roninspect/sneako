@@ -41,7 +41,7 @@ class _EditAddressPageState extends ConsumerState<EditAddressPage> {
 
   @override
   Widget build(BuildContext context) {
-    final uid = ref.watch(userDataNotifierProvider.select((value) => value.id));
+    final uid = ref.watch(userDataNotifierProvider).value!.id;
 
     final isSelected = ref.watch(isDefaultNotifierProvider);
 

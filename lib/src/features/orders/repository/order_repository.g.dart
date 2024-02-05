@@ -170,6 +170,268 @@ class _GetActiveOrdersProviderElement
   String get uid => (origin as GetActiveOrdersProvider).uid;
 }
 
+String _$getCancelledOrdersHash() =>
+    r'3c73168cb440eae1f8e259a721d2fc655addcf53';
+
+/// See also [getCancelledOrders].
+@ProviderFor(getCancelledOrders)
+const getCancelledOrdersProvider = GetCancelledOrdersFamily();
+
+/// See also [getCancelledOrders].
+class GetCancelledOrdersFamily extends Family<AsyncValue<List<ProductOrder>>> {
+  /// See also [getCancelledOrders].
+  const GetCancelledOrdersFamily();
+
+  /// See also [getCancelledOrders].
+  GetCancelledOrdersProvider call({
+    required String uid,
+  }) {
+    return GetCancelledOrdersProvider(
+      uid: uid,
+    );
+  }
+
+  @override
+  GetCancelledOrdersProvider getProviderOverride(
+    covariant GetCancelledOrdersProvider provider,
+  ) {
+    return call(
+      uid: provider.uid,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getCancelledOrdersProvider';
+}
+
+/// See also [getCancelledOrders].
+class GetCancelledOrdersProvider extends FutureProvider<List<ProductOrder>> {
+  /// See also [getCancelledOrders].
+  GetCancelledOrdersProvider({
+    required String uid,
+  }) : this._internal(
+          (ref) => getCancelledOrders(
+            ref as GetCancelledOrdersRef,
+            uid: uid,
+          ),
+          from: getCancelledOrdersProvider,
+          name: r'getCancelledOrdersProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getCancelledOrdersHash,
+          dependencies: GetCancelledOrdersFamily._dependencies,
+          allTransitiveDependencies:
+              GetCancelledOrdersFamily._allTransitiveDependencies,
+          uid: uid,
+        );
+
+  GetCancelledOrdersProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.uid,
+  }) : super.internal();
+
+  final String uid;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<ProductOrder>> Function(GetCancelledOrdersRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetCancelledOrdersProvider._internal(
+        (ref) => create(ref as GetCancelledOrdersRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        uid: uid,
+      ),
+    );
+  }
+
+  @override
+  FutureProviderElement<List<ProductOrder>> createElement() {
+    return _GetCancelledOrdersProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetCancelledOrdersProvider && other.uid == uid;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, uid.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetCancelledOrdersRef on FutureProviderRef<List<ProductOrder>> {
+  /// The parameter `uid` of this provider.
+  String get uid;
+}
+
+class _GetCancelledOrdersProviderElement
+    extends FutureProviderElement<List<ProductOrder>>
+    with GetCancelledOrdersRef {
+  _GetCancelledOrdersProviderElement(super.provider);
+
+  @override
+  String get uid => (origin as GetCancelledOrdersProvider).uid;
+}
+
+String _$getCompletedOrdersHash() =>
+    r'efc0b702aa0a8212f9ca7cf2a8b44f9d3605e17f';
+
+/// See also [getCompletedOrders].
+@ProviderFor(getCompletedOrders)
+const getCompletedOrdersProvider = GetCompletedOrdersFamily();
+
+/// See also [getCompletedOrders].
+class GetCompletedOrdersFamily extends Family<AsyncValue<List<ProductOrder>>> {
+  /// See also [getCompletedOrders].
+  const GetCompletedOrdersFamily();
+
+  /// See also [getCompletedOrders].
+  GetCompletedOrdersProvider call({
+    required String uid,
+  }) {
+    return GetCompletedOrdersProvider(
+      uid: uid,
+    );
+  }
+
+  @override
+  GetCompletedOrdersProvider getProviderOverride(
+    covariant GetCompletedOrdersProvider provider,
+  ) {
+    return call(
+      uid: provider.uid,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getCompletedOrdersProvider';
+}
+
+/// See also [getCompletedOrders].
+class GetCompletedOrdersProvider extends FutureProvider<List<ProductOrder>> {
+  /// See also [getCompletedOrders].
+  GetCompletedOrdersProvider({
+    required String uid,
+  }) : this._internal(
+          (ref) => getCompletedOrders(
+            ref as GetCompletedOrdersRef,
+            uid: uid,
+          ),
+          from: getCompletedOrdersProvider,
+          name: r'getCompletedOrdersProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getCompletedOrdersHash,
+          dependencies: GetCompletedOrdersFamily._dependencies,
+          allTransitiveDependencies:
+              GetCompletedOrdersFamily._allTransitiveDependencies,
+          uid: uid,
+        );
+
+  GetCompletedOrdersProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.uid,
+  }) : super.internal();
+
+  final String uid;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<ProductOrder>> Function(GetCompletedOrdersRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetCompletedOrdersProvider._internal(
+        (ref) => create(ref as GetCompletedOrdersRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        uid: uid,
+      ),
+    );
+  }
+
+  @override
+  FutureProviderElement<List<ProductOrder>> createElement() {
+    return _GetCompletedOrdersProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetCompletedOrdersProvider && other.uid == uid;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, uid.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetCompletedOrdersRef on FutureProviderRef<List<ProductOrder>> {
+  /// The parameter `uid` of this provider.
+  String get uid;
+}
+
+class _GetCompletedOrdersProviderElement
+    extends FutureProviderElement<List<ProductOrder>>
+    with GetCompletedOrdersRef {
+  _GetCompletedOrdersProviderElement(super.provider);
+
+  @override
+  String get uid => (origin as GetCompletedOrdersProvider).uid;
+}
+
 String _$getOrderlinesHash() => r'932a1e05d0ad0f5b36beec3a34869c902a616827';
 
 /// See also [getOrderlines].

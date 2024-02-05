@@ -20,6 +20,18 @@ Future<List<ProductOrder>> getActiveOrders(GetActiveOrdersRef ref,
 }
 
 @Riverpod(keepAlive: true)
+Future<List<ProductOrder>> getCancelledOrders(GetCancelledOrdersRef ref,
+    {required String uid}) async {
+  return ref.watch(orderRepositoryProvider).getCancelledOrders(uid: uid);
+}
+
+@Riverpod(keepAlive: true)
+Future<List<ProductOrder>> getCompletedOrders(GetCompletedOrdersRef ref,
+    {required String uid}) async {
+  return ref.watch(orderRepositoryProvider).getCompletedOrders(uid: uid);
+}
+
+@Riverpod(keepAlive: true)
 Future<List<OrderLine>> getOrderlines(GetOrderlinesRef ref,
     {required String orderId}) async {
   return await ref
@@ -57,7 +69,43 @@ class OrderRepository {
           .from('orders')
           .select('*')
           .eq('uid', uid)
-          .eq('order_status', 'Ordered')
+          .eq('order_status', 'Active')
+          .order('order_date', ascending: false);
+
+      final List<ProductOrder> orders =
+          res.map((e) => ProductOrder.fromMap(e)).toList();
+
+      return orders;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<List<ProductOrder>> getCancelledOrders({required String uid}) async {
+    try {
+      final res = await _client
+          .from('orders')
+          .select('*')
+          .eq('uid', uid)
+          .eq('order_status', 'Cancelled')
+          .order('order_date', ascending: false);
+
+      final List<ProductOrder> orders =
+          res.map((e) => ProductOrder.fromMap(e)).toList();
+
+      return orders;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<List<ProductOrder>> getCompletedOrders({required String uid}) async {
+    try {
+      final res = await _client
+          .from('orders')
+          .select('*')
+          .eq('uid', uid)
+          .eq('order_status', 'Completed')
           .order('order_date', ascending: false);
 
       final List<ProductOrder> orders =

@@ -9,7 +9,7 @@ import 'package:sneako/src/features/checkout/pages/address_page.dart';
 import 'package:sneako/src/features/checkout/pages/checkout_page.dart';
 import 'package:sneako/src/features/favourite/pages/fav_page.dart';
 import 'package:sneako/src/features/orders/pages/order_details_page.dart';
-import 'package:sneako/src/features/orders/pages/orders_page.dart';
+import 'package:sneako/src/features/orders/pages/Active_orders_page.dart';
 import 'package:sneako/src/features/product_details/pages/product_details_page.dart';
 import 'package:sneako/src/features/root/pages/rootpage.dart';
 import 'package:sneako/src/models/order.dart';
@@ -90,7 +90,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
               path: 'orders',
               name: AppRoutes.orders.name,
-              builder: (context, state) => const OrdersPage(),
+              builder: (context, state) => const ActiveOrderPage(),
               routes: [
                 GoRoute(
                   path: ':id',

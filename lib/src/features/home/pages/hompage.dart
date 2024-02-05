@@ -37,59 +37,159 @@ class HomePage extends ConsumerWidget {
       greetingText = 'Good Night';
     }
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: user.profile != null || user.profile != ""
-                ? CircleAvatar(
-                    minRadius: 30,
-                    backgroundImage: CachedNetworkImageProvider(user.profile!,
-                        cacheKey: user.id),
-                  )
-                : Container(
+      appBar: ref.watch(userDataNotifierProvider).when(
+            data: (user) => AppBar(
+              leading: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: user.profile != null || user.profile != ""
+                      ? CircleAvatar(
+                          minRadius: 30,
+                          backgroundImage: CachedNetworkImageProvider(
+                              user.profile!,
+                              cacheKey: user.id),
+                        )
+                      : Container(
+                          decoration:
+                              const BoxDecoration(shape: BoxShape.circle),
+                        )),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    greetingText,
+                    style: const TextStyle(
+                        fontSize: 17,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    user.username,
+                    style: const TextStyle(
+                        fontSize: 19, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              actions: [
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Ionicons.ios_notifications_outline,
+                      size: 26,
+                    )),
+                IconButton(
+                    onPressed: () =>
+                        context.pushNamed(AppRoutes.favourite.name),
+                    icon: favCount == null
+                        ? const SizedBox.shrink()
+                        : favCount.isEmpty
+                            ? const Icon(
+                                Ionicons.heart_outline,
+                                size: 27,
+                              )
+                            : Badge(
+                                label: Text(favCount.length.toString()),
+                                child: const Icon(
+                                  Ionicons.heart_outline,
+                                  size: 27,
+                                ),
+                              ))
+              ],
+            ),
+            error: (error, stackTrace) => AppBar(
+              leading: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Container(
                     decoration: const BoxDecoration(shape: BoxShape.circle),
                   )),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              greetingText,
-              style: const TextStyle(
-                  fontSize: 17,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w600),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    greetingText,
+                    style: const TextStyle(
+                        fontSize: 17,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  const Text(
+                    "Error",
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              actions: [
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Ionicons.ios_notifications_outline,
+                      size: 26,
+                    )),
+                IconButton(
+                    onPressed: () =>
+                        context.pushNamed(AppRoutes.favourite.name),
+                    icon: favCount == null
+                        ? const SizedBox.shrink()
+                        : favCount.isEmpty
+                            ? const Icon(
+                                Ionicons.heart_outline,
+                                size: 27,
+                              )
+                            : Badge(
+                                label: Text(favCount.length.toString()),
+                                child: const Icon(
+                                  Ionicons.heart_outline,
+                                  size: 27,
+                                ),
+                              ))
+              ],
             ),
-            Text(
-              user.username,
-              style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+            loading: () => AppBar(
+              leading: const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: CircularProgressIndicator()),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    greetingText,
+                    style: const TextStyle(
+                        fontSize: 17,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  const Text(
+                    "Loading",
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              actions: [
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Ionicons.ios_notifications_outline,
+                      size: 26,
+                    )),
+                IconButton(
+                    onPressed: () =>
+                        context.pushNamed(AppRoutes.favourite.name),
+                    icon: favCount == null
+                        ? const SizedBox.shrink()
+                        : favCount.isEmpty
+                            ? const Icon(
+                                Ionicons.heart_outline,
+                                size: 27,
+                              )
+                            : Badge(
+                                label: Text(favCount.length.toString()),
+                                child: const Icon(
+                                  Ionicons.heart_outline,
+                                  size: 27,
+                                ),
+                              ))
+              ],
             ),
-          ],
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Ionicons.ios_notifications_outline,
-                size: 26,
-              )),
-          IconButton(
-              onPressed: () => context.pushNamed(AppRoutes.favourite.name),
-              icon: favCount == null
-                  ? const SizedBox.shrink()
-                  : favCount.isEmpty
-                      ? const Icon(
-                          Ionicons.heart_outline,
-                          size: 27,
-                        )
-                      : Badge(
-                          label: Text(favCount.length.toString()),
-                          child: const Icon(
-                            Ionicons.heart_outline,
-                            size: 27,
-                          ),
-                        ))
-        ],
-      ),
+          ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(

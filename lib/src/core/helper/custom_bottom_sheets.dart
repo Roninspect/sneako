@@ -14,7 +14,7 @@ class CustomBottomSheets {
       {required BuildContext context,
       required Cart cart,
       required WidgetRef ref}) {
-    final uid = ref.watch(userDataNotifierProvider.select((value) => value.id));
+    final uid = ref.watch(userDataNotifierProvider).value!.id;
     return showModalBottomSheet(
       showDragHandle: true,
       context: context,

@@ -4,6 +4,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sneako/src/core/helper/async_value_helper.dart';
 import 'package:sneako/src/core/shared/loader.dart';
+import 'package:sneako/src/features/auth/provider/user_data_notifer.dart';
 import 'package:sneako/src/features/home/providers/selected_category_provider.dart';
 import 'package:sneako/src/features/home/repository/home_repository.dart';
 import 'package:sneako/src/router/router.dart';
@@ -14,7 +15,8 @@ class ProductByIdListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favState = ref.watch(favControllerProvider);
+    final user = ref.watch(userDataNotifierProvider).valueOrNull;
+
     final selectedBrand = ref.watch(selectedCategoryNotifierProvider);
     return ref.watch(getProductByBrandProvider(selectedBrand.id)).when(
           data: (p0) {
@@ -53,55 +55,64 @@ class ProductByIdListView extends ConsumerWidget {
                                         product.background,
                                         height: 150,
                                       ),
-                                      favState.isLoading
+                                      user == null
                                           ? loader()
-                                          : AsyncValueWidget(
-                                              value: ref.watch(
-                                                  isFavAlreadyProvider(
-                                                      productId: product.id)),
-                                              data: (p0) => p0
-                                                  ? IconButton(
-                                                      onPressed: () {
-                                                        ref
-                                                            .read(
-                                                                favControllerProvider
+                                          : ref
+                                                  .watch(favControllerProvider)
+                                                  .isLoading
+                                              ? loader()
+                                              : AsyncValueWidget(
+                                                  value: ref.watch(
+                                                      isFavAlreadyProvider(
+                                                          productId:
+                                                              product.id)),
+                                                  data: (p0) => p0
+                                                      ? IconButton(
+                                                          onPressed: () {
+                                                            ref
+                                                                .read(favControllerProvider
                                                                     .notifier)
-                                                            .unFavProduct(
-                                                                productId:
-                                                                    product.id);
-                                                      },
-                                                      icon: const CircleAvatar(
-                                                        radius: 15,
-                                                        backgroundColor:
-                                                            Colors.black,
-                                                        child: Icon(
-                                                          Icons.favorite,
-                                                          size: 20,
-                                                          color: Colors.red,
-                                                        ),
-                                                      ),
-                                                    )
-                                                  : IconButton(
-                                                      onPressed: () {
-                                                        ref
-                                                            .read(
-                                                                favControllerProvider
+                                                                .unFavProduct(
+                                                                    productId:
+                                                                        product
+                                                                            .id);
+                                                          },
+                                                          icon:
+                                                              const CircleAvatar(
+                                                            radius: 15,
+                                                            backgroundColor:
+                                                                Colors.black,
+                                                            child: Icon(
+                                                              Icons.favorite,
+                                                              size: 20,
+                                                              color: Colors.red,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      : IconButton(
+                                                          onPressed: () {
+                                                            ref
+                                                                .read(favControllerProvider
                                                                     .notifier)
-                                                            .favProduct(
-                                                                productId:
-                                                                    product.id);
-                                                      },
-                                                      icon: const CircleAvatar(
-                                                        radius: 15,
-                                                        backgroundColor:
-                                                            Colors.black,
-                                                        child: Icon(
-                                                          Icons.favorite_border,
-                                                          size: 20,
-                                                          color: Colors.white,
-                                                        ),
-                                                      )),
-                                            ),
+                                                                .favProduct(
+                                                                    productId:
+                                                                        product
+                                                                            .id);
+                                                          },
+                                                          icon:
+                                                              const CircleAvatar(
+                                                            radius: 15,
+                                                            backgroundColor:
+                                                                Colors.black,
+                                                            child: Icon(
+                                                              Icons
+                                                                  .favorite_border,
+                                                              size: 20,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          )),
+                                                ),
                                     ],
                                   ),
                                   const SizedBox(height: 5),

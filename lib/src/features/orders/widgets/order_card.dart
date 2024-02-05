@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:sneako/src/core/shared/custom_snackbar.dart';
 
+import 'package:sneako/src/core/shared/custom_snackbar.dart';
 import 'package:sneako/src/models/order.dart';
 import 'package:sneako/src/router/router.dart';
 
@@ -60,7 +60,8 @@ class OrderCard extends ConsumerWidget {
                     FontAwesome5Regular.copy,
                     color: Colors.green,
                   ),
-                )
+                ),
+                const SizedBox(width: 40),
               ],
             ),
             Text(
