@@ -21,7 +21,6 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userDataNotifierProvider);
     final favCount = ref.watch(favControllerProvider).valueOrNull;
 
     final currentTime = DateTime.now();

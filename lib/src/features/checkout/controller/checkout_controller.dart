@@ -159,6 +159,7 @@ class CheckoutController extends StateNotifier<bool> {
                 type: QuickAlertType.error,
                 text: l.message), (r) async {
           await _ref.read(cartControllerProvider.notifier).emptyCart();
+          _ref.invalidate(getActiveOrdersProvider);
           QuickAlert.show(
               onConfirmBtnTap: () {
                 context.pop();

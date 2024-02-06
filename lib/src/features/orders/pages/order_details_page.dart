@@ -22,45 +22,48 @@ class OrderDetailsPage extends ConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Ordered Items",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-            OrderlineListview(orderId: order.id!),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(88, 189, 189, 189),
-                  borderRadius: BorderRadius.circular(20)),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Total Price:",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    Text(
-                      "\$${order.order_total}",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Ordered Items",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              OrderlineListview(orderId: order.id!),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(88, 189, 189, 189),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Total Price:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(
+                        "\$${order.order_total}",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 15),
-            const Text(
-              "Order Status",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-            const SizedBox(height: 10),
-            OrderStatusTile(orderId: order.id!)
-          ],
+              const SizedBox(height: 15),
+              const Text(
+                "Order Status",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              const SizedBox(height: 10),
+              OrderStatusTile(orderId: order.id!)
+            ],
+          ),
         ),
       ),
     );

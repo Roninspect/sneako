@@ -310,7 +310,7 @@ class CheckOutPage extends ConsumerWidget {
                                                   address:
                                                       selectedAddress.address,
                                                   order_total: ordertotal,
-                                                  orderStatus: "Ordered"),
+                                                  orderStatus: "Active"),
                                               context: context,
                                               orderlines: cartState
                                                   .map((e) => OrderLine(

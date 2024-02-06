@@ -8,7 +8,7 @@ class OrderStatus {
   final bool inTransit;
   final bool delivered;
   final bool cancelled;
-  final String reason;
+  String? reason;
   OrderStatus({
     this.id,
     required this.orderId,
@@ -58,7 +58,7 @@ class OrderStatus {
       inTransit: map['in_transit'] as bool,
       delivered: map['delivered'] as bool,
       cancelled: map['cancelled'] as bool,
-      reason: map['reason'] as String,
+      reason: map['reason'] != null ? map['reason'] as String : null,
     );
   }
 

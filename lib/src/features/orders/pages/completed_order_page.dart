@@ -12,13 +12,12 @@ class CompletedOrderPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final uid = ref.watch(userDataNotifierProvider).value!.id;
-    final orderState = ref.watch(getCompletedOrdersProvider(uid: uid));
 
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: AsyncValueWidget(
-          value: orderState,
+          value: ref.watch(getCompletedOrdersProvider(uid: uid)),
           data: (p0) {
             if (p0.isEmpty) {
               return const Center(
