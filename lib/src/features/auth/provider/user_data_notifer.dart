@@ -5,7 +5,7 @@ import 'package:sneako/src/features/auth/repository/remote/auth_repository.dart'
 import 'package:sneako/src/models/user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-final userDataNotifierProvider = FutureProvider<UserModel>((ref) async {
+final userDataNotifierProvider = FutureProvider<UserModel?>((ref) async {
   return await ref.watch(authRepositoryProvider).getUserDatafromSupabase(
       id: Supabase.instance.client.auth.currentUser!.id);
 });

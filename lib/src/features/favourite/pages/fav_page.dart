@@ -11,15 +11,14 @@ class FavPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favState = ref.watch(favControllerProvider).valueOrNull;
+    final isFavNull = favState == null;
     return Scaffold(
       appBar: AppBar(
-        title: AsyncValueWidget(
-            value: ref.watch(favControllerProvider),
-            data: (p0) => Text(
-                  "Favourites (${p0.length})",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                )),
-      ),
+          title: Text(
+        "Favourites (${isFavNull ? "" : favState.length})",
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      )),
       body: AsyncValueWidget(
           value: ref.watch(favControllerProvider),
           data: (p0) => ListView.builder(

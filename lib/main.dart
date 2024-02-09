@@ -1,14 +1,18 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sneako/app_startup.dart';
-import 'package:sneako/src/features/auth/provider/user_data_notifer.dart';
 import 'package:sneako/src/router/router.dart';
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(ProviderScope(
       child: AppStartupWidget(
-    onLoaded: (context) => const MyApp(),
+    onLoaded: (context) => DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => const MyApp(), // Wrap your app
+    ),
   )));
 }
 
@@ -18,7 +22,6 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(userDataNotifierProvider);
     final router = ref.watch(routerProvider);
     return SafeArea(
       child: MaterialApp.router(

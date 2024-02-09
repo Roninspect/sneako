@@ -12,11 +12,13 @@ class CartCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
     final cartState = ref.watch(cartControllerProvider);
     final uid = ref.watch(userDataNotifierProvider).value!.id;
 
-    return SizedBox(
-      height: 620,
+    return Container(
+      color: Colors.amber,
+      height: size.height * 0.6945,
       child: AsyncValueWidget(
         value: cartState,
         data: (p0) {

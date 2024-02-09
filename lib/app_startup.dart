@@ -4,15 +4,13 @@ import 'package:sneako/src/core/constants/env.dart';
 import 'package:sneako/src/features/auth/provider/user_data_notifer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-final aappstartupProvider = FutureProvider<void>((ref) async {
-  await Supabase.initialize(
+final aappstartupProvider = FutureProvider<Supabase>((ref) async {
+  final res = await Supabase.initialize(
     url: Env.supabaseUrl,
     anonKey: Env.anonKey,
   );
 
-  Supabase.instance.client;
-
-  ref.invalidate(userDataNotifierProvider);
+  return res;
 });
 
 class AppStartupWidget extends ConsumerWidget {
@@ -21,18 +19,20 @@ class AppStartupWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userDataState = ref.watch(aappstartupProvider);
-    return userDataState.when(
-      data: (_) => onLoaded(context),
-      loading: () => const AppStartupLoadingWidget(),
-      error: (e, stk) {
-        print(stk);
-        return AppStartupErrorWidget(
-          message: e.toString(),
-          onRetry: () => ref.invalidate(userDataNotifierProvider),
+    return ref.watch(aappstartupProvider).when(
+          data: (data) {
+            final User? session = Supabase.instance.client.auth.currentUser;
+            return session != null ? onLoaded(context) : onLoaded(context);
+          },
+          loading: () => const AppStartupLoadingWidget(),
+          error: (e, stk) {
+            print(stk);
+            return AppStartupErrorWidget(
+              message: stk.toString(),
+              onRetry: () => ref.invalidate(userDataNotifierProvider),
+            );
+          },
         );
-      },
-    );
   }
 }
 

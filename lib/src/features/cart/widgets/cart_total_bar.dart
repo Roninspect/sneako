@@ -20,8 +20,9 @@ class CartTotalBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
     return Container(
-      height: 106,
+      height: size.height * 0.12,
       padding: const EdgeInsets.all(10),
       width: double.infinity,
       decoration: const BoxDecoration(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:sneako/src/features/auth/provider/user_data_notifer.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -143,7 +144,9 @@ class ProfilePage extends ConsumerWidget {
                   icon: const Icon(Icons.arrow_forward_ios_outlined)),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () async {
+                await Supabase.instance.client.auth.signOut();
+              },
               leading: const Icon(
                 Icons.logout,
                 color: Colors.red,

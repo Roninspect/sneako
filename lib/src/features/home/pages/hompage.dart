@@ -40,7 +40,7 @@ class HomePage extends ConsumerWidget {
             data: (user) => AppBar(
               leading: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: user.profile != null || user.profile != ""
+                  child: user!.profile != null || user.profile != ""
                       ? CircleAvatar(
                           minRadius: 30,
                           backgroundImage: CachedNetworkImageProvider(
@@ -62,7 +62,7 @@ class HomePage extends ConsumerWidget {
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    user.username,
+                    user!.username,
                     style: const TextStyle(
                         fontSize: 19, fontWeight: FontWeight.bold),
                   ),

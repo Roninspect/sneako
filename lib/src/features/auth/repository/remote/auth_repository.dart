@@ -27,10 +27,10 @@ final authStateProvider = riverpod.StreamProvider<supabase.AuthState?>((ref) {
   return ref.watch(authRepositoryProvider).authStateChanges;
 });
 
-final userDetailsProvider =
-    riverpod.FutureProvider.family<UserModel, String>((ref, id) async {
-  return ref.watch(authRepositoryProvider).getUserDatafromSupabase(id: id);
-});
+// final userDetailsProvider =
+//     riverpod.FutureProvider.family<UserModel?, String>((ref, id) async {
+//   return ref.watch(authRepositoryProvider).getUserDatafromSupabase(id: id);
+// });
 
 class AuthRepository {
   final supabase.SupabaseClient _client;
@@ -137,16 +137,17 @@ class AuthRepository {
     }
   }
 
-  Future<UserModel> getUserDatafromSupabase({required String id}) async {
+  Future<UserModel?> getUserDatafromSupabase({required String id}) async {
     try {
       final snap = await _client
           .from('users')
           .select("id, username, email, profile, phone, shippingAddress")
-          .eq('id', id);
+          .eq('id', id)
+          .maybeSingle();
 
       // Print the retrieved map for debugging
 
-      UserModel userModel = UserModel.fromMap(snap.first);
+      final userModel = snap != null ? UserModel.fromMap(snap) : null;
       return userModel;
     } catch (e) {
       throw e.toString();

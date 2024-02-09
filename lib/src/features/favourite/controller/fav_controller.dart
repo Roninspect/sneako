@@ -7,6 +7,7 @@ part 'fav_controller.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<bool> isFavAlready(IsFavAlreadyRef ref, {required int productId}) async {
+  print("called");
   return ref
       .watch(favControllerProvider.notifier)
       .isFavAlready(productId: productId);
@@ -15,6 +16,7 @@ Future<bool> isFavAlready(IsFavAlreadyRef ref, {required int productId}) async {
 @Riverpod(keepAlive: true)
 class FavController extends _$FavController {
   Future<List<Favourite>> getFavourites() async {
+    print("called");
     final FavRepository favRepository = ref.watch(favRepositoryProvider);
 
     final uid = ref.watch(userDataNotifierProvider).value!.id;

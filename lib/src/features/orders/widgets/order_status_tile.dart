@@ -23,7 +23,7 @@ class OrderStatusTile extends ConsumerWidget {
           SizedBox(
             height: 260,
             child: ListView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 SizedBox(
                   height: 80,
