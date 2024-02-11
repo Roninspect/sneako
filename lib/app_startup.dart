@@ -22,7 +22,20 @@ class AppStartupWidget extends ConsumerWidget {
     return ref.watch(aappstartupProvider).when(
           data: (data) {
             final User? session = Supabase.instance.client.auth.currentUser;
-            return session != null ? onLoaded(context) : onLoaded(context);
+            return session != null
+                ? ref.watch(userDataNotifierProvider).when(
+                      data: (data) => onLoaded(context),
+                      loading: () => const AppStartupLoadingWidget(),
+                      error: (e, stk) {
+                        print(stk);
+                        return AppStartupErrorWidget(
+                          message: stk.toString(),
+                          onRetry: () =>
+                              ref.invalidate(userDataNotifierProvider),
+                        );
+                      },
+                    )
+                : onLoaded(context);
           },
           loading: () => const AppStartupLoadingWidget(),
           error: (e, stk) {

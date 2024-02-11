@@ -10,6 +10,7 @@ class CartPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -17,13 +18,20 @@ class CartPage extends ConsumerWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Column(
-        children: [
-          const CartCard(),
-          CartTotalBar(
-              isCheckout: false,
-              onPressed: () => context.pushNamed(AppRoutes.checkout.name)),
-        ],
+      body: Container(
+        color: Colors.pink,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            const CartCard(),
+            SizedBox(
+              height: size.height * 0.1,
+              child: CartTotalBar(
+                  isCheckout: false,
+                  onPressed: () => context.pushNamed(AppRoutes.checkout.name)),
+            ),
+          ],
+        ),
       ),
     );
   }

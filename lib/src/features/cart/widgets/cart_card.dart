@@ -12,196 +12,198 @@ class CartCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final size = MediaQuery.of(context).size;
     final cartState = ref.watch(cartControllerProvider);
     final uid = ref.watch(userDataNotifierProvider).value!.id;
+    final size = MediaQuery.of(context).size;
 
-    return Container(
-      color: Colors.amber,
-      height: size.height * 0.6945,
-      child: AsyncValueWidget(
-        value: cartState,
-        data: (p0) {
-          return p0.isEmpty
-              ? const Center(
-                  child: Text('No Cart item'),
-                )
-              : ListView.builder(
-                  itemCount: p0.length,
-                  itemBuilder: (context, index) {
-                    final cart = p0[index];
-                    final cartProduct = cart.product!;
-                    final cartColor = cart.colors!;
-                    final cartSize = cart.sizes!;
+    return Expanded(
+      child: Container(
+        color: Colors.amber,
+        child: AsyncValueWidget(
+          value: cartState,
+          data: (p0) {
+            return p0.isEmpty
+                ? const Center(
+                    child: Text('No Cart item'),
+                  )
+                : ListView.builder(
+                    itemCount: p0.length,
+                    itemBuilder: (context, index) {
+                      final cart = p0[index];
+                      final cartProduct = cart.product!;
+                      final cartColor = cart.colors!;
+                      final cartSize = cart.sizes!;
 
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 8.0),
-                      child: Container(
+                      return Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10),
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(15, 0, 0, 0),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Row(
-                          children: [
-                            CachedNetworkImage(
-                              height: 100,
-                              width: 110,
-                              cacheKey: cartProduct.background,
-                              imageUrl: cartProduct.background,
-                            ),
-                            const SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 250,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                            vertical: 8.0, horizontal: 8.0),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(15, 0, 0, 0),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Row(
+                            children: [
+                              CachedNetworkImage(
+                                height: 100,
+                                width: 110,
+                                cacheKey: cartProduct.background,
+                                imageUrl: cartProduct.background,
+                              ),
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 250,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          cartProduct.title,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18),
+                                        ),
+                                        IconButton(
+                                            onPressed: () {
+                                              CustomBottomSheets
+                                                  .displayRemoveConfirmSheet(
+                                                      ref: ref,
+                                                      cart: cart,
+                                                      context: context);
+                                            },
+                                            icon: const Icon(
+                                              MaterialCommunityIcons
+                                                  .delete_outline,
+                                              size: 27,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
                                     children: [
+                                      CircleAvatar(
+                                        radius: 8,
+                                        backgroundColor: Color(
+                                            int.parse(cartColor.colorCode)),
+                                      ),
+                                      const SizedBox(width: 5),
                                       Text(
-                                        cartProduct.title,
+                                        cartColor.name,
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18),
                                       ),
-                                      IconButton(
-                                          onPressed: () {
-                                            CustomBottomSheets
-                                                .displayRemoveConfirmSheet(
-                                                    ref: ref,
-                                                    cart: cart,
-                                                    context: context);
-                                          },
-                                          icon: const Icon(
-                                            MaterialCommunityIcons
-                                                .delete_outline,
-                                            size: 27,
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 8,
-                                      backgroundColor:
-                                          Color(int.parse(cartColor.colorCode)),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Text(
-                                      cartColor.name,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                    ),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 8.0),
-                                      child: Text(
-                                        '|',
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Text(
+                                          '|',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18),
+                                        ),
+                                      ),
+                                      const Text(
+                                        'Size - ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18),
                                       ),
-                                    ),
-                                    const Text(
-                                      'Size - ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                    ),
-                                    Text(
-                                      cartSize.size.toString(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 5),
-                                SizedBox(
-                                  width: 250,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
                                       Text(
-                                        '\$${cartProduct.mainPrice} x ${cart.quantity}',
+                                        cartSize.size.toString(),
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 20),
+                                            fontSize: 18),
                                       ),
-                                      Container(
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                            color: const Color.fromARGB(
-                                                15, 0, 0, 0),
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                        child: Row(
-                                          children: [
-                                            IconButton(
-                                                onPressed: () {
-                                                  ref
-                                                      .read(
-                                                          cartControllerProvider
-                                                              .notifier)
-                                                      .incrementQuantity(
-                                                          cartId: cart.id!,
-                                                          productId:
-                                                              cartProduct.id,
-                                                          uid: uid,
-                                                          colorId: cart.color,
-                                                          sizeId: cart.size,
-                                                          quanity:
-                                                              cart.quantity);
-                                                },
-                                                icon: const Icon(Icons.add)),
-                                            Text(
-                                              cart.quantity.toString(),
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
-                                            IconButton(
-                                                onPressed: () {
-                                                  if (cart.quantity > 1) {
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  SizedBox(
+                                    width: 250,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '\$${cartProduct.mainPrice} x ${cart.quantity}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20),
+                                        ),
+                                        Container(
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  15, 0, 0, 0),
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          child: Row(
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () {
                                                     ref
                                                         .read(
                                                             cartControllerProvider
                                                                 .notifier)
-                                                        .decrementQuantity(
+                                                        .incrementQuantity(
                                                             cartId: cart.id!,
+                                                            productId:
+                                                                cartProduct.id,
+                                                            uid: uid,
+                                                            colorId: cart.color,
+                                                            sizeId: cart.size,
                                                             quanity:
                                                                 cart.quantity);
-                                                  } else {
-                                                    CustomBottomSheets
-                                                        .displayRemoveConfirmSheet(
-                                                            context: context,
-                                                            cart: cart,
-                                                            ref: ref);
-                                                  }
-                                                },
-                                                icon: const Icon(Icons.remove)),
-                                          ],
+                                                  },
+                                                  icon: const Icon(Icons.add)),
+                                              Text(
+                                                cart.quantity.toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              ),
+                                              IconButton(
+                                                  onPressed: () {
+                                                    if (cart.quantity > 1) {
+                                                      ref
+                                                          .read(
+                                                              cartControllerProvider
+                                                                  .notifier)
+                                                          .decrementQuantity(
+                                                              cartId: cart.id!,
+                                                              quanity: cart
+                                                                  .quantity);
+                                                    } else {
+                                                      CustomBottomSheets
+                                                          .displayRemoveConfirmSheet(
+                                                              context: context,
+                                                              cart: cart,
+                                                              ref: ref);
+                                                    }
+                                                  },
+                                                  icon:
+                                                      const Icon(Icons.remove)),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                );
-        },
+                      );
+                    },
+                  );
+          },
+        ),
       ),
     );
   }

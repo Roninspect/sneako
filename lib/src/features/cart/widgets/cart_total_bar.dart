@@ -20,9 +20,7 @@ class CartTotalBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.12,
       padding: const EdgeInsets.all(10),
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -45,7 +43,7 @@ class CartTotalBar extends ConsumerWidget {
                   style: TextStyle(
                       color: Color.fromARGB(146, 0, 0, 0),
                       fontWeight: FontWeight.bold,
-                      fontSize: 16),
+                      fontSize: 15),
                 ),
                 AsyncValueWidget(
                   value: ref.watch(cartControllerProvider),
@@ -59,13 +57,13 @@ class CartTotalBar extends ConsumerWidget {
                         return Text(
                           "\$$totalPrice.00",
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 30),
+                              fontWeight: FontWeight.bold, fontSize: 15),
                         );
                       } else {
                         return Text(
                           "\$${totalPrice + shippingCharge!}.00",
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 30),
+                              fontWeight: FontWeight.bold, fontSize: 15),
                         );
                       }
                     } else {
